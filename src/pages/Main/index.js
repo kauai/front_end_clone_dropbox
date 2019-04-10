@@ -13,7 +13,8 @@ export default class Main extends Component {
     const response = await api.post('boxes',{
         title:this.state.newBox
     })
-    console.log(response.data)
+    this.props.history.push(`/boxes/${response.data._id}`)
+   // console.log(response.data)
   }
 
   handleInputChange = (e) => {
@@ -23,6 +24,7 @@ export default class Main extends Component {
   }
 
   render() {
+     // console.log(this.props)
     return (
       <div id="main-container">
         <form onSubmit={this.handleSubmit}>
