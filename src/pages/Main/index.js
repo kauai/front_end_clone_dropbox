@@ -1,18 +1,40 @@
-import React, { Component } from 'react'
-import api from './../../services/api'
-import './style.css'
-import logo from './../../assets/logo.svg'
+import React, { Component } from "react";
+import api from "./../../services/api";
+import "./style.css";
+import logo from "./../../assets/logo.svg";
 
 export default class Main extends Component {
+  state = {
+    newBox: ""
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault()
+    const response = await api.post('boxes',{
+        title:this.state.newBox
+    })
+    console.log(response.data)
+  }
+
+  handleInputChange = (e) => {
+      this.setState({
+          newBox:e.target.value
+      })
+  }
+
   render() {
     return (
       <div id="main-container">
-         <form action="">
-             <img src={ logo } alt=""/>
-             <input placeholder="Criar um box"/>
-             <button type="submit">Criar</button>
-         </form>
+        <form onSubmit={this.handleSubmit}>
+          <img src={logo} alt="" />
+          <input 
+            placeholder="Criar um box" 
+            value={this.state.newBox} 
+            onChange={this.handleInputChange}
+            />
+          <button type="submit">Criar</button>
+        </form>
       </div>
-    )
+    );
   }
 }
